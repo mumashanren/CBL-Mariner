@@ -3,8 +3,8 @@
 %define uname_r %{version}-%{release}
 Summary:        Linux Kernel
 Name:           kernel
-Version:        5.10.109.1
-Release:        2%{?dist}
+Version:        5.10.189.1
+Release:        1%{?dist}
 License:        GPLv2
 Vendor:         Microsoft Corporation
 Distribution:   Mariner
@@ -17,7 +17,6 @@ Source2:        config_aarch64
 Source3:        sha512hmac-openssl.sh
 Source4:        cbl-mariner-ca-20211013.pem
 Patch0:         0001-clocksource-drivers-hyper-v-Re-enable-VDSO_CLOCKMODE.patch
-Patch1:         0003-export-mmput_async.patch
 # Kernel CVEs are addressed by moving to a newer version of the stable kernel.
 # Since kernel CVEs are filed against the upstream kernel version and not the
 # stable kernel version, our automated tooling will still flag the CVE as not
@@ -394,7 +393,6 @@ manipulation of eBPF programs and maps.
 %prep
 %setup -q -n CBL-Mariner-Linux-Kernel-rolling-lts-mariner-%{version}
 %patch0 -p1
-%patch1 -p1
 
 %build
 make mrproper
@@ -478,7 +476,7 @@ install -D -m 640 arch/arm64/boot/dts/freescale/imx8mq-evk.dtb %{buildroot}/boot
 install -vm 400 System.map %{buildroot}/boot/System.map-%{uname_r}
 install -vm 600 .config %{buildroot}/boot/config-%{uname_r}
 cp -r Documentation/*        %{buildroot}%{_defaultdocdir}/linux-%{uname_r}
-install -vm 644 vmlinux %{buildroot}%{_lib}/debug/lib/modules/%{uname_r}/vmlinux-%{uname_r}
+install -vm 744 vmlinux %{buildroot}%{_lib}/debug/lib/modules/%{uname_r}/vmlinux-%{uname_r}
 # `perf test vmlinux` needs it
 ln -s vmlinux-%{uname_r} %{buildroot}%{_lib}/debug/lib/modules/%{uname_r}/vmlinux
 
@@ -636,9 +634,139 @@ ln -sf linux-%{uname_r}.cfg /boot/mariner.cfg
 %{_sysconfdir}/bash_completion.d/bpftool
 
 %changelog
+* Wed Aug 09 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.189.1-1
+- Auto-upgrade to 5.10.189.1
+
+* Mon Jul 31 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.188.1-1
+- Auto-upgrade to 5.10.188.1
+
+* Wed Jul 26 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.187.1-1
+- Auto-upgrade to 5.10.187.1
+
+* Wed Jun 28 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.185.1-1
+- Auto-upgrade to 5.10.185.1
+
+* Tue Jun 13 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.183.1-1
+- Auto-upgrade to 5.10.183.1
+
+* Fri Jun 02 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.181.1-1
+- Auto-upgrade to 5.10.181.1
+
+* Tue May 23 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.180.1-1
+- Auto-upgrade to 5.10.180.1
+
+* Wed May 10 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.179.1-1
+- Auto-upgrade to 5.10.179.1
+
+* Tue Apr 11 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.177.1-1
+- Auto-upgrade to 5.10.177.1
+
+* Tue Mar 14 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.174.1-1
+- Auto-upgrade to 5.10.174.1
+
+* Mon Mar 06 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.172.1-1
+- Auto-upgrade to 5.10.172.1
+
+* Wed Feb 22 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.168.1-1
+- Auto-upgrade to 5.10.168.1
+
+* Wed Feb 15 2023 Rachel Menge <rachelmenge@microsoft.com> - 5.10.167.1-2
+- Install vmlinux as root executable for debuginfo
+
+* Tue Feb 07 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.167.1-1
+- Auto-upgrade to 5.10.167.1
+
+* Thu Jan 26 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.165.1-1
+- Auto-upgrade to 5.10.165.1
+
+* Fri Jan 20 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.164.1-1
+- Auto-upgrade to 5.10.164.1
+
+* Sat Jan 14 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.162.1-1
+- Auto-upgrade to 5.10.162.1
+
+* Fri Dec 23 2022 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.161.1-1
+- Auto-upgrade to 5.10.161.1
+
+* Tue Dec 13 2022 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.158.1-1
+- Auto-upgrade to 5.10.158.1
+
+* Wed Dec 07 2022 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.157.1-1
+- Auto-upgrade to 5.10.157.1
+
+* Tue Nov 29 2022 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.156.1-1
+- Auto-upgrade to 5.10.156.1
+
+* Fri Nov 18 2022 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.155.1-1
+- Auto-upgrade to 5.10.155.1
+
+* Tue Nov 08 2022 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.153.1-1
+- Auto-upgrade to 5.10.153.1
+
+* Tue Nov 01 2022 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.152.1-1
+- Upgrade to 5.10.152.1
+
+* Wed Oct 19 2022 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.149.1-1
+- Upgrade to 5.10.149.1
+
+* Tue Sep 27 2022 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.145.1-1
+- Upgrade to 5.10.145.1
+
+* Thu Sep 22 2022 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.144.1-1
+- Upgrade to 5.10.144.1
+
+* Wed Sep 14 2022 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.142.1-1
+- Upgrade to 5.10.142.1
+
+* Thu Sep 08 2022 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.139.1-1
+- Upgrade to 5.10.139.1
+
+* Thu Sep 01 2022 Chris Co <chrco@microsoft.com> - 5.10.134.1-2
+- Enable 32-bit time syscall support
+
+* Tue Aug 23 2022 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.134.1-1
+- Upgrade to 5.10.134.1
+
+* Wed Aug 17 2022 Rachel Menge <rachelmenge@microsoft.com> - 5.10.133.1-1
+- Update source to 5.10.133.1
+
+* Sun Jul 24 2022 Rachel Menge <rachelmenge@microsoft.com> - 5.10.131.1-1
+- Update source to 5.10.131.1
+
+* Wed Jul 06 2022 Max Brodeur-Urbas <maxbr@microsoft.com> - 5.10.128.1-1
+- Update source to 5.10.128.1
+- Address CVE-2022-32296, CVE-2022-1652, CVE-2022-1786, CVE-2022-0854,
+  CVE-2021-20194, CVE-2021-32078, CVE-2021-37159
+
+* Mon Jun 20 2022 Rachel Menge <rachelmenge@microsoft.com> - 5.10.123.1-1
+- Update source to 5.10.123.1
+
+* Wed Jun 01 2022 Minghe Ren <mingheren@microsoft.com> - 5.10.117.1-2
+- Disable SMACK kernel configuration
+
+* Tue May 24 2022 Max Brodeur-Urbas <maxbr@microsoft.com> - 5.10.117.1-1
+- Update source to 5.10.117.1
+- Address CVE-2022-28893 
+
+* Tue May 17 2022 Rachel Menge <rachelmenge@microsoft.com> - 5.10.116.1-1
+- Update source to 5.10.116.1
+- Address CVE-2022-1048, CVE-2022-1353, CVE-2022-29582, CVE-2022-1195
+  CVE-2022-0494, CVE-2022-1015, CVE-2022-29968
+
+* Tue Apr 19 2022 Rachel Menge <rachelmenge@microsoft.com> - 5.10.111.1-1
+- Update source to 5.10.111.1
+- Enable CONFIG_BPF_UNPRIV_DEFAULT_OFF
+- Address CVE-2021-4023, CVE-2021-4157, CVE-2022-0435, CVE-2022-0998
+  CVE-2022-28356, CVE-2022-28388, CVE-2022-28389, CVE-2022-28390, 
+  CVE-2021-4203, CVE-2022-0322, CVE-2022-27950, CVE-2021-4148, 
+  CVE-2021-4149, CVE-2022-28796, CVE-2022-29156, CVE-2021-4202,
+  CVE-2022-0500, CVE-2022-0330, CVE-2020-26558, CVE-2021-4197,
+  CVE-2021-4150, CVE-2020-35501
+
 * Fri Apr 01 2022 Rachel Menge <rachelmenge@microsoft.com> - 5.10.109.1-2
 - Remove hardcoded mariner.pem from configs and instead insert during
   the build phase
+- Address CVE-2022-1055, CVE-2022-27666, CVE-2022-0995, CVE-2021-44879
 
 * Tue Mar 29 2022 Max Brodeur-Urbas <maxbr@microsoft.com> - 5.10.109.1-1
 - Update source to 5.10.109.1

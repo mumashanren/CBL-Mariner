@@ -1,7 +1,7 @@
 Summary:        Database servers made by the original developers of MySQL.
 Name:           mariadb
-Version:        10.3.34
-Release:        1%{?dist}
+Version:        10.3.36
+Release:        2%{?dist}
 License:        GPLv2 WITH exceptions AND LGPLv2 AND BSD
 Vendor:         Microsoft Corporation
 Distribution:   Mariner
@@ -12,6 +12,7 @@ Group:          Applications/Databases
 URL:            https://mariadb.org/
 Source0:        https://github.com/MariaDB/server/archive/%{name}-%{version}.tar.gz
 
+Patch0:         CVE-2022-47015.patch
 BuildRequires:  cmake
 BuildRequires:  curl-devel
 BuildRequires:  e2fsprogs-devel
@@ -255,6 +256,7 @@ rm -rf %{buildroot}
 %{_bindir}/replace
 %{_bindir}/resolve_stack_dump
 %{_bindir}/resolveip
+%{_bindir}/wsrep_sst_backup
 %{_bindir}/wsrep_sst_common
 %{_bindir}/wsrep_sst_mariabackup
 %{_bindir}/wsrep_sst_mysqldump
@@ -371,6 +373,20 @@ rm -rf %{buildroot}
 %{_datadir}/mysql/hindi/errmsg.sys
 
 %changelog
+* Fri Feb 10 2023 Dan Streetman <ddstreet@microsoft.com> - 10.3.36-2
+- CVE-2022-47015
+
+* Mon Sep 26 2022 Aadhar Agarwal <aadagarwal@microsoft.com> - 10.3.36-1
+- Upgrade to 10.3.36 to fix 3 CVEs:
+- CVE-2018-25032, CVE-2022-32091, CVE-2022-38791
+
+* Tue May 31 2022 Olivia Crain <oliviacrain@microsoft.com> - 10.3.35-1
+- Upgrade to latest 10.3.X release to fix 20 CVEs:
+- CVE-2021-46669, CVE-2022-21427, CVE-2022-27376, CVE-2022-27377, CVE-2022-27378,
+- CVE-2022-27379, CVE-2022-27379, CVE-2022-27380, CVE-2022-27381, CVE-2022-27383,
+- CVE-2022-27384, CVE-2022-27386, CVE-2022-27387, CVE-2022-27445, CVE-2022-27447,
+- CVE-2022-27448, CVE-2022-27449, CVE-2022-27452, CVE-2022-27456, CVE-2022-27458
+
 * Mon Feb 28 2022 Nicolas Guibourge <nicolasg@microsoft.com> - 10.3.34-1
 - Upgrading to version 10.3.34
 - patch CVE-2021-46661, CVE-2021-46662, CVE-2021-46663, CVE-2021-46664, CVE-2021-46665, CVE-2021-46668

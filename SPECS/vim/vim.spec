@@ -1,7 +1,6 @@
-%define debug_package %{nil}
 Summary:        Text editor
 Name:           vim
-Version:        8.2.4563
+Version:        9.0.1562
 Release:        1%{?dist}
 License:        Vim
 Vendor:         Microsoft Corporation
@@ -9,6 +8,7 @@ Distribution:   Mariner
 Group:          Applications/Editors
 URL:            https://www.vim.org
 Source0:        https://github.com/%{name}/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+%define debug_package %{nil}
 BuildRequires:  ncurses-devel
 
 %description
@@ -105,6 +105,8 @@ fi
 %{_datarootdir}/vim/vim*/ftplugin/*
 %{_datarootdir}/vim/vim*/ftplugof.vim
 %{_datarootdir}/vim/vim*/gvimrc_example.vim
+%{_datarootdir}/vim/vim*/import/dist/vimhelp.vim
+%{_datarootdir}/vim/vim*/import/dist/vimhighlight.vim
 %{_datarootdir}/vim/vim*/indent.vim
 %{_datarootdir}/vim/vim*/indent/*
 %{_datarootdir}/vim/vim*/indoff.vim
@@ -120,9 +122,9 @@ fi
 %{_datarootdir}/vim/vim*/scripts.vim
 %{_datarootdir}/vim/vim*/spell/*
 %{_datarootdir}/vim/vim*/syntax/*
-%exclude %{_datarootdir}/vim/vim82/syntax/nosyntax.vim
-%exclude %{_datarootdir}/vim/vim*/syntax/syntax.vim
-%exclude %{_datarootdir}/vim/vim82/autoload/dist/ft.vim
+%exclude %{_datarootdir}/vim/vim90/syntax/nosyntax.vim
+%exclude %{_datarootdir}/vim/vim90/syntax/syntax.vim
+%exclude %{_datarootdir}/vim/vim90/autoload/dist/ft.vim
 %{_datarootdir}/vim/vim*/tools/*
 %{_datarootdir}/vim/vim*/tutor/*
 %{_datarootdir}/vim/vim*/lang/*.vim
@@ -178,9 +180,9 @@ fi
 %{_datarootdir}/vim/vim*/colors/lists/default.vim
 %{_datarootdir}/vim/vim*/defaults.vim
 %{_datarootdir}/vim/vim*/filetype.vim
-%{_datarootdir}/vim/vim82/syntax/nosyntax.vim
-%{_datarootdir}/vim/vim82/syntax/syntax.vim
-%{_datarootdir}/vim/vim82/autoload/dist/ft.vim
+%{_datarootdir}/vim/vim90/syntax/nosyntax.vim
+%{_datarootdir}/vim/vim90/syntax/syntax.vim
+%{_datarootdir}/vim/vim90/autoload/dist/ft.vim
 %{_bindir}/ex
 %{_bindir}/vi
 %{_bindir}/view
@@ -190,6 +192,89 @@ fi
 %{_bindir}/vimdiff
 
 %changelog
+* Wed May 17 2023 Muhammad Falak <mwani@microsoft.com> - 9.0.1562-1
+- Bump version to address CVE-2023-2609 & CVE-2023-2610
+
+* Mon May 08 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 9.0.1527-1
+- Auto-upgrade to 9.0.1527 - Fix CVE-2023-2426
+
+* Thu Mar 16 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 9.0.1402-1
+- Auto-upgrade to 9.0.1402 - Fix CVE-2023-1264
+
+* Fri Mar 10 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 9.0.1378-1
+- Auto-upgrade to 9.0.1378 - patch CVE-2023-1175
+
+* Thu Mar 09 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 9.0.1367-1
+- Auto-upgrade to 9.0.1367 - patch CVE-2023-1127
+
+* Wed Feb 08 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 9.0.1247-1
+- Auto-upgrade to 9.0.1247 - to fix CVE-2023-0512
+
+* Thu Feb 02 2023 Henry Li <lihl@microsoft.com> - 9.0.1189-2
+- Add patch to resolve CVE-2023-0433  
+
+* Fri Jan 20 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 9.0.1189-1
+- Auto-upgrade to 9.0.1189 - to fix CVE-2023-0288
+
+* Tue Jan 17 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 9.0.1145-1
+- Auto-upgrade to 9.0.1145 - to fix CVE-2023-0049, CVE-2023-0054, CVE-2023-0051
+
+* Thu Dec 01 2022 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 9.0.0982-1
+- Auto-upgrade to 9.0.0982 - CVE-2022-4141
+
+* Sun Oct 30 2022 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 9.0.0805-1
+- Upgrade to 9.0.0805
+
+* Tue Oct 04 2022 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 9.0.0614-1
+- Upgrade to 9.0.0614
+
+* Mon Sep 26 2022 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 9.0.0530-1
+- Upgrade to 9.0.0530
+
+* Mon Sep 19 2022 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 9.0.0404-1
+- Upgrade to 9.0.0404
+
+* Thu Sep 08 2022 Suresh Babu Chalamalasetty <schalam@microsoft.com> - 9.0.0360-1
+- Upgrade to 9.0.0360 to fix CVE-2022-3099
+
+* Tue Sep 06 2022 Suresh Babu Chalamalasetty <schalam@microsoft.com> - 9.0.0348-1
+- Upgrade to 9.0.0348 to fix CVE-2022-3016 and CVE-2022-3037
+
+* Mon Aug 29 2022 Minghe Ren <mingheren@microsoft.com> - 9.0.0260-1
+- Upgrade to 9.0.0260 to fix: CVE-2022-2982, CVE-2022-2946
+
+* Fri Aug 19 2022 Olivia Crain <oliviacrain@microsoft.com> - 9.0.0228-1
+- Upgrade to 9.0.0228 to fix CVEs: 2022-2571, 2022-2580, 2022-2581, 2022-2598, 2022-2816, 2022-2817, 2022-2819
+
+* Tue Aug 09 2022 Pawel Winogrodzki <pawelwi@microsoft.com> - 9.0.0181-1
+- Upgrade to 9.0.0181 to fix CVEs: 2022-2522, 2022-2571, 2022-2580, 2022-2581.
+
+* Wed Jul 13 2022 Mandeep Plaha <mandeepplaha@microsoft.com> - 9.0.0050-1
+- Upgrade to 9.0.0050 to fix CVEs: 2022-2257, 2022-2264, 2022-2284, 2022-2285, 2022-2286, 2022-2287
+
+* Fri Jul 08 2022 Nick Samson <nisamson@microsoft.com> - 8.2.5172-1
+- Upgrade to 8.2.5172 to fix CVEs: 2022-2207, 2022-2208, 2022-2210, 2022-2206
+
+* Tue Jun 28 2022 Suresh Babu Chalamalasetty <schalam@microsoft.com> - 8.2.5154-1
+- Upgrade to 8.2.5154 to fix CVEs: 2022-2124, 2022-2125, 2022-2126 and 2022-2129
+
+* Mon Jun 06 2022 Pawel Winogrodzki <pawelwi@microsoft.com> - 8.2.5064-1
+- Update to version 8.2.5064 to fix CVEs: 2022-1851, 2022-1886, and 2022-1898.
+
+* Fri May 27 2022 Max Brodeur-Urbas <maxbr@microsoft.com> - 8.2.4979-1
+- Update version to 8.2.4979 to fix CVE-2022-1619, CVE-2022-1621, CVE-2022-1629, 
+  CVE-2022-1616, CVE-2022-1733, CVE-2022-1735, CVE-2022-1769, CVE-2022-1620, 
+  CVE-2022-1674, CVE-2022-1771, CVE-2022-1785, CVE-2022-1796.
+
+* Fri Apr 29 2022 Suresh Babu Chalamalasetty <schalam@microsoft.com> - 8.2.4774-1
+- Update version to 8.2.4774 to fix CVE-2022-1420.
+
+* Wed Apr 27 2022 Suresh Babu Chalamalasetty <schalam@microsoft.com> - 8.2.4763-1
+- Update version to 8.2.4763 to fix CVE-2022-1381.
+
+* Thu Apr 07 2022 Nick Samson <nisamson@microsoft.com> - 8.2.4710-1
+- Update to 8.2.4710 to fix CVE-2022-1154
+
 * Thu Mar 24 2022 Andrew Phelps <anphel@microsoft.com> - 8.2.4563-1
 - Update version to 8.2.4563 to fix CVE-2022-0943
 

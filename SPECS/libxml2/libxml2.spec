@@ -2,14 +2,17 @@
 %{!?python3_sitelib: %define python3_sitelib %(python3 -c "from distutils.sysconfig import get_python_lib;print(get_python_lib())")}
 Summary:        Libxml2
 Name:           libxml2
-Version:        2.9.13
-Release:        1%{?dist}
+Version:        2.9.14
+Release:        3%{?dist}
 License:        MIT
 Vendor:         Microsoft Corporation
 Distribution:   Mariner
 Group:          System Environment/General Libraries
 URL:            https://www.xmlsoft.org/
 Source0:        https://gitlab.gnome.org/GNOME/%{name}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
+Patch0:         CVE-2022-2309.patch
+Patch1:         CVE-2022-40303.patch
+Patch2:         CVE-2022-40304.patch
 BuildRequires:  python-xml
 BuildRequires:  python2-devel
 BuildRequires:  python2-libs
@@ -105,6 +108,15 @@ rm -rf %{buildroot}/*
 %{_libdir}/cmake/libxml2/libxml2-config.cmake
 
 %changelog
+* Wed Nov 30 2022 Jon Slobodzian <joslobo@microsoft.com> - 2.9.14-3
+- Fix CVE-2022-40303 and CVE-2022-40304
+
+* Wed Aug 24 2022 Nicolas Guibourge <nicolasg@microsoft.com> - 2.9.14-2
+- Fix CVE-2022-2309.
+
+* Mon Jun 13 2022 Jon Slobodzian <joslobo@microsoft.com> - 2.9.14-1
+- Updating to version 2.9.14 to fix CVE-2022-29824.
+
 * Wed Mar 09 2022 Pawel Winogrodzki <pawelwi@microsoft.com> - 2.9.13-1
 - Updating to version 2.9.13 to fix CVE-2022-23308.
 

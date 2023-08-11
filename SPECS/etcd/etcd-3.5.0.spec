@@ -1,7 +1,7 @@
 Summary:        A highly-available key value store for shared configuration
 Name:           etcd
 Version:        3.5.0
-Release:        4%{?dist}
+Release:        10%{?dist}
 License:        ASL 2.0
 Vendor:         Microsoft Corporation
 Distribution:   Mariner
@@ -66,7 +66,7 @@ for component in server etcdctl etcdutl; do
     tar --no-same-owner -xf %{_builddir}/%{name}-%{version}/vendor-$component.tar.gz
     go build \
         -o %{ETCD_OUT_DIR} \
-        -ldflags=-X=go.etcd.io/etcd/api/v3/version.GitSHA=v%{version}
+        -ldflags='-compressdwarf=false -X=go.etcd.io/etcd/api/v3/version.GitSHA=v%{version}'
     popd
 done
 
@@ -141,6 +141,25 @@ rm -rf %{buildroot}/*
 /%{_docdir}/%{name}-%{version}-tools/*
 
 %changelog
+* Thu Jun 22 2023 Mitch Zhu <mitchzhu@microsoft.com> - 3.5.0-10
+- Bump release to rebuild with go 1.19.10
+  Disable DWARF compression in go 1.19.10
+
+* Tue Dec 13 2022 Suresh Babu Chalamalasetty <schalam@microsoft.com> - 3.5.0-9
+- Bump release to rebuild with go 1.18.8-2
+
+* Tue Nov 01 2022 Olivia Crain <oliviacrain@microsoft.com> - 3.5.0-8
+- Bump release to rebuild with go 1.18.8
+
+* Wed Aug 17 2022 Olivia Crain <oliviacrain@microsoft.com> - 3.5.0-7
+- Bump to rebuild with golang 1.18.5-1
+
+* Tue Jun 07 2022 Andrew Phelps <anphel@microsoft.com> - 3.5.0-6
+- Bumping release to rebuild with golang 1.18.3
+
+* Fri Apr 29 2022 chalamalasetty <chalamalasetty@live.com> - 3.5.0-5
+- Bumping 'Release' to rebuild with updated Golang version 1.16.15-2.
+
 * Tue Mar 15 2022 Muhammad Falak <mwani@microsoft.com> - 3.5.0-4
 - Bump release to force rebuild with golang 1.16.15
 

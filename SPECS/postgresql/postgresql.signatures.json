@@ -1,5 +1,5 @@
 {
- "Signatures": {
-  "postgresql-12.7.tar.bz2": "8490741f47c88edc8b6624af009ce19fda4dc9b31c4469ce2551d84075d5d995"
- }
+  "Signatures": {
+    "postgresql-12.15.tar.bz2": "bb5206e2864c1c4579938b96ea6096d155f22abf2d2cc2aa57571e3c4cb12b36"
+  }
 }

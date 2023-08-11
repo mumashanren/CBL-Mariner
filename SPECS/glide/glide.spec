@@ -1,7 +1,7 @@
 Summary:        Vendor Package Management for Golang
 Name:           glide
 Version:        0.13.3
-Release:        10%{?dist}
+Release:        16%{?dist}
 License:        MIT
 URL:            https://github.com/Masterminds/glide
 # Source0:      https://github.com/Masterminds/%{name}/archive/v%{version}.tar.gz
@@ -28,6 +28,8 @@ export GOPATH=%{OUR_GOPATH}
 mkdir -p ${GOPATH}/src/github.com/Masterminds/glide
 cp -r * ${GOPATH}/src/github.com/Masterminds/glide/.
 pushd ${GOPATH}/src/github.com/Masterminds/glide
+# Disable DWARF compression
+sed -i 's/-ldflags "-X/-ldflags "-compressdwarf=false -X/g' Makefile
 make VERSION=%{version} build %{?_smp_mflags}
 popd
 
@@ -53,6 +55,25 @@ popd
 %{_bindir}/glide
 
 %changelog
+* Thu Jun 22 2023 Mitch Zhu <mitchzhu@microsoft.com> - 0.13.3-16
+- Bump release to rebuild with go 1.19.10
+  Disable DWARF compression in go 1.19.10
+
+* Tue Dec 13 2022 Suresh Babu Chalamalasetty <schalam@microsoft.com> - 0.13.3-15
+- Bump release to rebuild with go 1.18.8-2
+
+* Tue Nov 01 2022 Olivia Crain <oliviacrain@microsoft.com> - 0.13.3-14
+- Bump release to rebuild with go 1.18.8
+
+* Wed Aug 17 2022 Olivia Crain <oliviacrain@microsoft.com> - 0.13.3-13
+- Bump to rebuild with golang 1.18.5-1
+
+* Tue Jun 07 2022 Andrew Phelps <anphel@microsoft.com> - 0.13.3-12
+- Bumping release to rebuild with golang 1.18.3
+
+* Fri Apr 29 2022 chalamalasetty <chalamalasetty@live.com> - 0.13.3-11
+- Bumping 'Release' to rebuild with updated Golang version 1.16.15-2.
+
 * Tue Mar 15 2022 Muhammad Falak <mwani@microsoft.com> - 0.13.3-10
 - Bump release to force rebuild with golang 1.16.15
 

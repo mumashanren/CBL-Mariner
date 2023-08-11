@@ -3,8 +3,8 @@
 %define uname_r %{version}-%{release}
 Summary:        Linux Kernel optimized for Hyper-V
 Name:           kernel-hyperv
-Version:        5.10.109.1
-Release:        2%{?dist}
+Version:        5.10.189.1
+Release:        1%{?dist}
 License:        GPLv2
 Vendor:         Microsoft Corporation
 Distribution:   Mariner
@@ -155,7 +155,7 @@ install -vm 600 arch/x86/boot/bzImage %{buildroot}/boot/vmlinuz-%{uname_r}
 install -vm 400 System.map %{buildroot}/boot/System.map-%{uname_r}
 install -vm 600 .config %{buildroot}/boot/config-%{uname_r}
 cp -r Documentation/*        %{buildroot}%{_defaultdocdir}/linux-%{uname_r}
-install -vm 644 vmlinux %{buildroot}%{_lib}/debug/lib/modules/%{uname_r}/vmlinux-%{uname_r}
+install -vm 744 vmlinux %{buildroot}%{_lib}/debug/lib/modules/%{uname_r}/vmlinux-%{uname_r}
 # `perf test vmlinux` needs it
 ln -s vmlinux-%{uname_r} %{buildroot}%{_lib}/debug/lib/modules/%{uname_r}/vmlinux
 
@@ -270,6 +270,117 @@ ln -sf linux-%{uname_r}.cfg /boot/mariner.cfg
 %{_libdir}/perf/include/bpf/*
 
 %changelog
+* Wed Aug 09 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.189.1-1
+- Auto-upgrade to 5.10.189.1
+
+* Mon Jul 31 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.188.1-1
+- Auto-upgrade to 5.10.188.1
+
+* Wed Jul 26 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.187.1-1
+- Auto-upgrade to 5.10.187.1
+
+* Wed Jun 28 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.185.1-1
+- Auto-upgrade to 5.10.185.1
+
+* Tue Jun 13 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.183.1-1
+- Auto-upgrade to 5.10.183.1
+
+* Fri Jun 02 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.181.1-1
+- Auto-upgrade to 5.10.181.1
+
+* Tue May 23 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.180.1-1
+- Auto-upgrade to 5.10.180.1
+
+* Wed May 10 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.179.1-1
+- Auto-upgrade to 5.10.179.1
+
+* Tue Apr 11 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.177.1-1
+- Auto-upgrade to 5.10.177.1
+
+* Tue Mar 14 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.174.1-1
+- Auto-upgrade to 5.10.174.1
+
+* Mon Mar 06 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.172.1-1
+- Auto-upgrade to 5.10.172.1
+
+* Wed Feb 22 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.168.1-1
+- Auto-upgrade to 5.10.168.1
+
+* Wed Feb 15 2023 Rachel Menge <rachelmenge@microsoft.com> - 5.10.167.1-2
+- Install vmlinux as root executable for debuginfo
+
+* Tue Feb 07 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.167.1-1
+- Auto-upgrade to 5.10.167.1
+
+* Thu Jan 26 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.165.1-1
+- Auto-upgrade to 5.10.165.1
+
+* Fri Jan 20 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.164.1-1
+- Auto-upgrade to 5.10.164.1
+
+* Sat Jan 14 2023 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.162.1-1
+- Auto-upgrade to 5.10.162.1
+
+* Fri Dec 23 2022 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.161.1-1
+- Auto-upgrade to 5.10.161.1
+
+* Tue Dec 13 2022 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.158.1-1
+- Auto-upgrade to 5.10.158.1
+
+* Wed Dec 07 2022 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.157.1-1
+- Auto-upgrade to 5.10.157.1
+
+* Tue Nov 29 2022 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.156.1-1
+- Auto-upgrade to 5.10.156.1
+
+* Fri Nov 18 2022 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.155.1-1
+- Auto-upgrade to 5.10.155.1
+
+* Tue Nov 08 2022 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.153.1-1
+- Auto-upgrade to 5.10.153.1
+
+* Tue Nov 01 2022 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.152.1-1
+- Upgrade to 5.10.152.1
+
+* Wed Oct 19 2022 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.149.1-1
+- Upgrade to 5.10.149.1
+
+* Tue Sep 27 2022 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.145.1-1
+- Upgrade to 5.10.145.1
+
+* Thu Sep 22 2022 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.144.1-1
+- Upgrade to 5.10.144.1
+
+* Wed Sep 14 2022 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.142.1-1
+- Upgrade to 5.10.142.1
+
+* Thu Sep 08 2022 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.139.1-1
+- Upgrade to 5.10.139.1
+
+* Tue Aug 23 2022 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 5.10.134.1-1
+- Upgrade to 5.10.134.1
+
+* Wed Aug 17 2022 Rachel Menge <rachelmenge@microsoft.com> - 5.10.133.1-1
+- Update source to 5.10.133.1
+
+* Sun Jul 24 2022 Rachel Menge <rachelmenge@microsoft.com> - 5.10.131.1-1
+- Update source to 5.10.131.1
+
+* Wed Jul 06 2022 Max Brodeur-Urbas <maxbr@microsoft.com> - 5.10.128.1-1
+- Update source to 5.10.128.1
+
+* Mon Jun 20 2022 Rachel Menge <rachelmenge@microsoft.com> - 5.10.123.1-1
+- Update source to 5.10.123.1
+
+* Tue May 24 2022 Max Brodeur-Urbas <maxbr@microsoft.com> - 5.10.117.1-1
+- Update source to 5.10.117.1
+
+* Tue May 17 2022 Rachel Menge <rachelmenge@microsoft.com> - 5.10.116.1-1
+- Update source to 5.10.116.1
+
+* Tue Apr 19 2022 Rachel Menge <rachelmenge@microsoft.com> - 5.10.111.1-1
+- Update source to 5.10.111.1
+
 * Fri Apr 01 2022 Rachel Menge <rachelmenge@microsoft.com> - 5.10.109.1-2
 - Remove hardcoded mariner.pem from configs and instead insert during
   the build phase

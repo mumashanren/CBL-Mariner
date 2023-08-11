@@ -2,7 +2,7 @@
 
 Summary:        Configuration-management, application deployment, cloud provisioning system
 Name:           ansible
-Version:        2.9.23
+Version:        2.9.27
 Release:        2%{?dist}
 License:        GPLv3+
 Vendor:         Microsoft Corporation
@@ -38,7 +38,7 @@ python3 setup.py build
 python3 setup.py install -O1 --root %{buildroot}
 
 %check
-pip3 install tox
+pip3 install 'tox>=3.27.1,<4.0.0'
 cd build/lib/ansible_test/_data && tox
 
 %files
@@ -48,6 +48,12 @@ cd build/lib/ansible_test/_data && tox
 %{python3_sitelib}/*
 
 %changelog
+* Thu Jan 12 2023 Sam Meluch <sammeluch@microsoft.com> - 2.9.27-2
+- Update version of tox for package tests
+
+* Mon May 02 2022 Nick Samson <nisamson@microsoft.com> - 2.9.27-1
+- Upgraded to 2.9.27-1 to fix CVE-2021-3620
+
 * Thu Oct 21 2021 Jon Slobodzian <joslobo@microsoft.com> - 2.9.23-2
 - Add missing runtime dependencies.
 

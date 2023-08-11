@@ -1,13 +1,14 @@
 Summary:        Compression and decompression routines
 Name:           zlib
-Version:        1.2.11
-Release:        3%{?dist}
+Version:        1.2.12
+Release:        2%{?dist}
 URL:            http://www.zlib.net/
 License:        zlib
 Group:          Applications/System
 Vendor:         Microsoft Corporation
 Distribution:   Mariner
 Source0:        http://www.zlib.net/%{name}-%{version}.tar.xz
+Patch0:         CVE-2022-37434.patch
 %define sha1    zlib=e1cb0d5c92da8e9a8c2635dfa249c341dfd00322
 %description
 Compression and decompression routines
@@ -35,7 +36,7 @@ make  %{?_smp_mflags} check
 %postun -p /sbin/ldconfig
 %files
 %defattr(-,root,root)
-%license contrib/dotzlib/LICENSE_1_0.txt
+%license README
 %{_libdir}/libz.so.*
 
 %files devel
@@ -47,9 +48,15 @@ make  %{?_smp_mflags} check
 %{_mandir}/man3/zlib.3.gz
 
 %changelog
-* Sat May 09 2020 Nick Samson <nisamson@microsoft.com> - 1.2.11-3
-- Added %%license line automatically
+* Tue Aug 16 2022 Olivia Crain <oliviacrain@microsoft.com> - 1.2.12-2
+- Add upstream patches for CVE-2022-37434
+- Fix packaged license- actual license is contained within README
+- License verified
 
+*   Wed May 04 2022 Nick Samson <nisamson@microsoft.com> - 1.2.12-1
+-   Upgraded to 1.2.12 to fix CVE-2018-25032
+*   Sat May 09 2020 Nick Samson <nisamson@microsoft.com> - 1.2.11-3
+-   Added %%license line automatically
 *   Tue Sep 03 2019 Mateusz Malisz <mamalisz@microsoft.com> 1.2.11-2
 -   Initial CBL-Mariner import from Photon (license: Apache2).
 *   Wed Apr 05 2017 Xiaolin Li <xiaolinl@vmware.com> 1.2.11-1

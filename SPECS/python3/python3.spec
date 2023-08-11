@@ -2,7 +2,7 @@
 %global __brp_python_bytecompile %{nil}
 Summary:        A high-level scripting language
 Name:           python3
-Version:        3.7.11
+Version:        3.7.16
 Release:        1%{?dist}
 License:        PSF
 Vendor:         Microsoft Corporation
@@ -14,8 +14,7 @@ Patch0:         cgi3.patch
 Patch1:         python3-support-mariner-platform.patch
 Patch2:         Replace-unsupported-TLS-methods.patch
 Patch3:         fix_broken_mariner_ssl_tests.patch
-# Upstream patch to fix XML tests with expat >= 2.4.5
-Patch5:         fix-xml-tests-expat.patch
+Patch4:         CVE-2023-24329.patch
 BuildRequires:  bzip2-devel
 BuildRequires:  expat-devel >= 2.1.0
 BuildRequires:  libffi-devel >= 3.0.13
@@ -170,6 +169,10 @@ ln -sf libpython3.7m.so %{buildroot}%{_libdir}/libpython3.7.so
 cp -p Tools/scripts/pathfix.py %{buildroot}%{_bindir}/pathfix3.7.py
 ln -s ./pathfix3.7.py %{buildroot}%{_bindir}/pathfix.py
 
+# unversioned python is for python2, so update pip3/pip3.7/easy_install-3.7 with python3.7
+# this patch needs update when python3.7 version bump up
+sed -i 's|#!/usr/bin/python|#!%{_bindir}/python3.7|' %{buildroot}%{_bindir}/{pip3,pip3.7,easy_install-3.7}
+
 # Remove unused stuff
 find %{buildroot}%{_libdir} -name '*.pyc' -delete
 find %{buildroot}%{_libdir} -name '*.pyo' -delete
@@ -262,7 +265,7 @@ make  %{?_smp_mflags} test
 %files pip
 %defattr(-,root,root,755)
 %{_libdir}/python3.7/site-packages/pip/*
-%{_libdir}/python3.7/site-packages/pip-20.1.1.dist-info/*
+%{_libdir}/python3.7/site-packages/pip-22.0.4.dist-info/*
 %{_bindir}/pip*
 
 %files setuptools
@@ -276,6 +279,30 @@ make  %{?_smp_mflags} test
 %{_libdir}/python3.7/test/*
 
 %changelog
+* Wed May 30 2023 Dallas Delaney <dadelan@microsoft.com> - 3.7.16-1
+- Upgrade to 3.7.16 to resolve CVE-2022-42919 and CVE-2022-45061
+- Remove patches for CVE-2015-20107, CVE-2015-20107, CVE-2021-28861 
+
+* Mon Feb 27 2023 Mitch Zhu <mitchzhu@microsoft.com> - 3.7.13-6
+- Add patch to fix CVE-2023-24329
+
+* Tue Dec 06 2022 Minghe Ren <mingheren@microsoft.com> - 3.7.13-5
+- Add CVE-2022-37454 patch from upstream
+
+* Mon Oct 03 2022 Pawel Winogrodzki <pawelwi@microsoft.com> - 3.7.13-4
+- Add CVE-2015-20107 patch from upstream
+
+* Thu Sep 01 2022 Minghe Ren <mingheren@microsoft.com> - 3.7.13-3
+- Add patch to fix CVE-2021-28861
+
+* Wed Jul 06 2022 Suresh Babu Chalamalasetty <schalam@microsoft.com> - 3.7.13-2
+- Fix for bad interpreter error when running pip3, pip3.7
+
+* Tue Jun 28 2022 Suresh Babu Chalamalasetty <schalam@microsoft.com> - 3.7.13-1
+- Upgrade to 3.7.13 to resolve CVE-2019-12900
+- CVE-2019-12900 fix already present in bzip2
+- Remove fix-xml-tests-expat patch present in 3.7.13
+
 * Mon Mar 21 2022 Andrew Phelps <anphel@microsoft.com> - 3.7.11-1
 - Upgrade to 3.7.11 to fix CVE-2021-3737
 

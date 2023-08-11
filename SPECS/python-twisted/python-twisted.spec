@@ -1,10 +1,9 @@
 %{!?python2_sitelib: %define python2_sitelib %(python2 -c "from distutils.sysconfig import get_python_lib;print(get_python_lib())")}
-%{!?python3_sitelib: %define python3_sitelib %(python3 -c "from distutils.sysconfig import get_python_lib;print(get_python_lib())")}
 
 Summary:        An asynchronous networking framework written in Python
 Name:           python-twisted
 Version:        20.3.0
-Release:        2%{?dist}
+Release:        4%{?dist}
 License:        MIT
 Group:          Development/Languages/Python
 Vendor:         Microsoft Corporation
@@ -14,6 +13,7 @@ Source0:        https://pypi.python.org/packages/source/T/Twisted/Twisted-%{vers
 Patch0:         extra_dependency.patch
 Patch1:         no_packet.patch
 Patch2:         CVE-2022-21712.patch
+Patch3:         CVE-2022-24801.patch
 
 BuildRequires:  python2
 BuildRequires:  python2-libs
@@ -24,13 +24,11 @@ BuildRequires:  python-zope-interface
 BuildRequires:  python-cryptography
 BuildRequires:  pyOpenSSL
 BuildRequires:  python-six
-
-BuildRequires:  python3-devel
-BuildRequires:  python3-libs
-BuildRequires:  python3-incremental
-BuildRequires:  python3-zope-interface
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-xml
+%if %{with_check}
+BuildRequires:  net-tools
+BuildRequires:  shadow-utils
+BuildRequires:  sudo
+%endif
 Requires:       python2
 Requires:       python2-libs
 Requires:       python-zope-interface
@@ -45,61 +43,24 @@ Twisted is an event-driven networking engine written in Python and licensed unde
 
 Twisted also supports many common network protocols, including SMTP, POP3, IMAP, SSHv2, and DNS.
 
-%package -n     python3-twisted
-Summary:        python3-twisted
-
-Requires:       python3
-Requires:       python3-libs
-Requires:       python3-zope-interface
-Requires:       python3-netaddr
-Requires:       python3-incremental
-Requires:       python3-constantly
-Requires:       python3-hyperlink
-Requires:       python3-attrs
-
-%description -n python3-twisted
-Python 3 version.
-
 %prep
 %autosetup -p 1 -n Twisted-%{version}
-rm -rf ../p3dir
-cp -a . ../p3dir
 
 %build
 python2 setup.py build
-pushd ../p3dir
-python3 setup.py build
-popd
 
 %install
-pushd ../p3dir
-python3 setup.py install --prefix=%{_prefix} --root=%{buildroot}
-mv %{buildroot}/%{_bindir}/twistd %{buildroot}/%{_bindir}/twistd3
-mv %{buildroot}/%{_bindir}/trial %{buildroot}/%{_bindir}/trial3
-mv %{buildroot}/%{_bindir}/tkconch %{buildroot}/%{_bindir}/tkconch3
-mv %{buildroot}/%{_bindir}/pyhtmlizer %{buildroot}/%{_bindir}/pyhtmlizer3
-mv %{buildroot}/%{_bindir}/twist %{buildroot}/%{_bindir}/twist3
-mv %{buildroot}/%{_bindir}/conch %{buildroot}/%{_bindir}/conch3
-mv %{buildroot}/%{_bindir}/ckeygen %{buildroot}/%{_bindir}/ckeygen3
-mv %{buildroot}/%{_bindir}/cftp %{buildroot}/%{_bindir}/cftp3
-popd
 python2 setup.py install --prefix=%{_prefix} --root=%{buildroot}
 
 %check
+sed -i '/dump_all_version_info.py/d' tox.ini
 easy_install_2=$(ls /usr/bin |grep easy_install |grep 2)
 route add -net 224.0.0.0 netmask 240.0.0.0 dev lo
-$easy_install_2 pip
+$easy_install_2 pip==20.3.4
 pip install --upgrade tox
 chmod g+w . -R
 useradd test -G root -m
-LANG=en_US.UTF-8 sudo -u test tox -e py27-tests
-pushd ../p3dir
-easy_install_3=$(ls /usr/bin |grep easy_install |grep 3)
-$easy_install_3 pip
-pip install --upgrade tox
-chmod g+w . -R
-LANG=en_US.UTF-8 sudo -u test tox -e py36-tests
-popd
+LANG=en_US.UTF-8 sudo -u test tox -e py27-alldeps-nocov,
 
 %files
 %defattr(-,root,root)
@@ -115,21 +76,16 @@ popd
 %{_bindir}/ckeygen
 %{_bindir}/cftp
 
-%files -n python3-twisted
-%defattr(-,root,root)
-%{python3_sitelib}/*
-%{_bindir}/twistd3
-%{_bindir}/trial3
-%{_bindir}/tkconch3
-%{_bindir}/pyhtmlizer3
-%{_bindir}/twist3
-%{_bindir}/conch3
-%{_bindir}/ckeygen3
-%{_bindir}/cftp3
-
 %changelog
-*   Sun Feb 20 2022 Mariner Autopatcher <cblmargh@microsoft.com> 20.3.0-2
--   Added patch file(s) CVE-2022-21712.patch
+* Wed Nov 09 2022 Pawel Winogrodzki <pawelwi@microsoft.com> - 20.3.0-4
+- Moved Python 3 version to a separate package.
+
+* Wed Jun 01 2022 Olivia Crain <oliviacrain@microsoft.com> - 20.3.0-3
+- Patch CVE-2022-24801
+
+* Sun Feb 20 2022 Mariner Autopatcher <cblmargh@microsoft.com> 20.3.0-2
+- Added patch file(s) CVE-2022-21712.patch
+
 * Fri Jul 30 2021 Thomas Crain <thcrain@microsoft.com> - 20.3.0-1
 - Upgrade to version 20.3.0 to fix CVE-2020-10108, CVE-2020-10109
 - Use %%autosetup instead of %%setup and %%patch
